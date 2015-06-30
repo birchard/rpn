@@ -2,7 +2,7 @@ package rpn
 
 import "testing"
 
-func TestSolveBadInputs(t *testing.T) {
+func TestBadInputs(t *testing.T) {
 	cases := []struct {
 		in   []string
 		want string
@@ -19,7 +19,7 @@ func TestSolveBadInputs(t *testing.T) {
 	}
 }
 
-func TestSolveAddition(t *testing.T) {
+func TestAddition(t *testing.T) {
 	cases := []struct {
 		in   []string
 		want string
@@ -30,6 +30,8 @@ func TestSolveAddition(t *testing.T) {
 		{[]string{"4", "5", "6", "+", "-"}, "-7"},
 		{[]string{"42"}, "42"},
 		{[]string{"42", "-"}, "-42"},
+		{[]string{"-42", "-"}, "42"},
+		{[]string{"42", "+"}, "unary operator \"+\" is not supported"},
 	}
 	for _, c := range cases {
 		got := Solve(c.in)
@@ -48,6 +50,7 @@ func TestSolveMultiplication(t *testing.T) {
 		{[]string{"9", "3", "/"}, "3"},
 		{[]string{"9", "3", "/", "3", "*"}, "9"},
 		{[]string{"12", "4", "6", "*", "/"}, "0.5"},
+		{[]string{"42", "*"}, "unary operator \"*\" is not supported"},
 	}
 	for _, c := range cases {
 		got := Solve(c.in)
