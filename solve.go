@@ -2,6 +2,7 @@ package rpn
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -37,6 +38,8 @@ func parse(expr []string) string {
 				pad.Push(t2 * t1)
 			case "/":
 				pad.Push(t2 / t1)
+			case "^":
+				pad.Push(math.Pow(t2, t1))
 			}
 		}
 	}
